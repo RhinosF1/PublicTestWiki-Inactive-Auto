@@ -1,2 +1,2 @@
-# PublicTestWiki-Inactive-Auto
-Partially automates https://publictestwiki.com/wiki/TestWiki:Inactivity
+# PublicTestWiki Semi-Automated Inactivity Scripts
+Partially automates [TestWiki:Inactivity](https://publictestwiki.com/wiki/TestWiki:Inactivity) processing
