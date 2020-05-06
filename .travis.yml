@@ -1,4 +1,4 @@
-build: xenial
+dist: xenial
 os: linux
 language: python
 services:
