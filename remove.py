@@ -64,7 +64,7 @@ USERRIGHTS_TOKEN = DATA["query"]["tokens"]["userrightstoken"]
 count = 0
 while count < len(userlist):
   inactiveuser = userlist[count]
-    time.sleep(5) #wait 5 seconds before write api
+  time.sleep(5) #wait 5 seconds before write api
 # Step 4: Request to add or remove a user from a group
   PARAMS_4 = {
       "action": "userrights",
