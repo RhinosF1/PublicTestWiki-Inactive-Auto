@@ -1,4 +1,6 @@
 requiredChecks:
   - travis-ci
+  - WIP
+  - labeler
 mergeMethod: squash
 requireApprovalFromRequestedReviewers: true
