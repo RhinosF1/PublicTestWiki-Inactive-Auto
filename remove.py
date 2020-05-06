@@ -1,11 +1,75 @@
 import time
+import requests
 print("Welcome to the TestWiki:Inactivity Script")
 print("This script may only be used by consuls")
 print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
 time.sleep(2)
-print("https://publictestwiki.com/wiki/Special:ApiSandbox#action=userrights&format=json&user=&add=&remove=bot%7Csysop%7Cbureaucrat%7Cconsul%7Ctestgroup%7Cautopatrolled%7Cconfirmed%7Crollbacker%7Cinterface-admin%7Cflow-bot%7Ccheckuser%7Cinterwiki-admin%7Coversight%7Csteward&reason=per%20%5B%5BTestWiki%3AInactivity%7CInactivity%20report%5D%5D&token=")
+input("Press enter to continue or ctrl+c to quit")
+users = input("How many users are being removed? ")
+userlist = []
+count = 0
+while count < int(users):
+  usertemp = input("User to remove: ")
+  userlist.append(usertemp)
+  count = count + 1
+  time.sleep(0.5)
+S = requests.Session()
+URL = "https://test.miraheze.org/w/api.php"
+# Step 1: Retrieve a login token
+PARAMS_1 = {
+    "action": "query",
+    "meta": "tokens",
+    "type": "login",
+    "format": "json"
+}
+R = S.get(url=URL, params=PARAMS_1)
+DATA = R.json()
+LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
+# Step 2: Send a post request to log in. See
+# https://www.mediawiki.org/wiki/Manual:Bot_passwords
+username = input("Username: ")
+password = input("Password: ")
+PARAMS_2 = {
+    "action": "login",
+    "lgname": username,
+    "lgpassword": password,
+    "lgtoken": LOGIN_TOKEN,
+    "format": "json"
+}
+R = S.post(URL, data=PARAMS_2)
+# Step 3: Obtain a Userrights token
+PARAMS_3 = {
+    "action": "query",
+    "format": "json",
+    "meta": "tokens",
+    "type": "userrights"
+}
+R = S.get(url=URL, params=PARAMS_3)
+DATA = R.json()
+
+USERRIGHTS_TOKEN = DATA["query"]["tokens"]["userrightstoken"]
+
+count = 0
+while count < len(userlist):
+  inactiveuser = userlist[count]
+# Step 4: Request to add or remove a user from a group
+  PARAMS_4 = {
+      "action": "userrights",
+      "format": "json",
+      "user": inactiveuser,
+      "remove": "bot|sysop|bureaucrat|consul|testgroup|autopatrolled|confirmed|rollbacker|interface-admin|flow-bot|checkuser|interwiki-admin|oversight|steward",
+      "reason": "per [[TestWiki:Inactivity|Inactivity report]]",
+      "token": USERRIGHTS_TOKEN
+  }
+  count = count + 1
+
+  R = S.post(URL, data=PARAMS_4)
+  DATA = R.json()
+
+  print(DATA)
+  time.sleep(3)
 time.sleep(2)
-userremoving = input("What is your username?")
-print('{{subst:Inactivity|user='+userremoving)
+print('Generating mass message text..')
+print('{{subst:Inactivity|user='+username)
 time.sleep(5)
 print("Thanks for using!")
