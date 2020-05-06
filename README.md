@@ -12,10 +12,10 @@ This script should only be used by Consuls.
 
 # Running
 
-To run the notify script:
- - python3 notify.py
+To run the script in notify mode:
+ - python main.py notify
 
-To run the remove script:
- - python3 remove.py
+To run the script in remove mode:
+ - python main.py remove
 
 Follow the on-screen instructions.
