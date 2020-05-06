@@ -1,5 +1,6 @@
 import time
 import requests
+import stdiomask
 print("Welcome to the TestWiki:Inactivity Script")
 print("This script may only be used by consuls")
 print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
@@ -34,7 +35,7 @@ LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
 # https://www.mediawiki.org/wiki/Manual:Bot_passwords
 time.sleep(1) #wait 1s to avoid throttling
 username = input("Username: ")
-password = input("Password: ")
+password = stdiomask.getpass()
 PARAMS_2 = {
     "action": "login",
     "lgname": username,
