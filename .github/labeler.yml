@@ -1,3 +1,3 @@
-merge-when-green:
+merge when green:
   - remove.py
   - notify.py
