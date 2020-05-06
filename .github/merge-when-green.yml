@@ -1,0 +1,4 @@
+requiredChecks:
+  - travis-ci
+mergeMethod: squash
+requireApprovalFromRequestedReviewers: true
