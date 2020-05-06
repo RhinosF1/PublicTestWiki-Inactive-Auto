@@ -97,7 +97,7 @@ try:
     print("Commands are:")
     print("remove     Removes rights from inactive users")
   else:
-    print("Unknown command. For help use 'main.py help'."
+    print("Unknown command. For help use 'main.py help'.")
 except IndexError:
   print("Please specify an action (remove, notify)")
   sys.exit()
