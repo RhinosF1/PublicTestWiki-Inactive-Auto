@@ -1,6 +1,10 @@
 import time
 import requests
 import stdiomask
+import sys
+
+if sys.argv[1] == 'remove':
+  print("Activating Remove Mode")
 print("Welcome to the TestWiki:Inactivity Script")
 print("This script may only be used by consuls")
 print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
