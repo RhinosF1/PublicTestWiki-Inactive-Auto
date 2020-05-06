@@ -70,6 +70,6 @@ while count < len(userlist):
   time.sleep(3)
 time.sleep(2)
 print('Generating mass message text..')
-print('{{subst:Inactivity|user='+username)
+print('{{subst:Inactivity|user='+username+'}}')
 time.sleep(5)
 print("Thanks for using!")
