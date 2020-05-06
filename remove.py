@@ -7,4 +7,5 @@ print("https://publictestwiki.com/wiki/Special:ApiSandbox#action=userrights&form
 time.sleep(2)
 userremoving = input("What is your username?")
 print('{{subst:Inactivity|user='+userremoving)
-time.sleep(2)
+time.sleep(5)
+print("Thanks for using!")
