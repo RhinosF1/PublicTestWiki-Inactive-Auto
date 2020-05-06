@@ -13,6 +13,11 @@ while count < int(users):
   userlist.append(usertemp)
   count = count + 1
   time.sleep(0.5)
+fromheader = input("Your Email: ")
+headers = {
+    'User-Agent': 'PublicTestWikiInactiveAuto-github/rhinosf1-fortestwikiconusls',
+    'From': fromheader
+}
 S = requests.Session()
 URL = "https://test.miraheze.org/w/api.php"
 # Step 1: Retrieve a login token
@@ -22,11 +27,12 @@ PARAMS_1 = {
     "type": "login",
     "format": "json"
 }
-R = S.get(url=URL, params=PARAMS_1)
+R = S.get(url=URL, params=PARAMS_1, headers=headers)
 DATA = R.json()
 LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
 # Step 2: Send a post request to log in. See
 # https://www.mediawiki.org/wiki/Manual:Bot_passwords
+time.sleep(1) #wait 1s to avoid throttling
 username = input("Username: ")
 password = input("Password: ")
 PARAMS_2 = {
@@ -36,7 +42,8 @@ PARAMS_2 = {
     "lgtoken": LOGIN_TOKEN,
     "format": "json"
 }
-R = S.post(URL, data=PARAMS_2)
+R = S.post(URL, data=PARAMS_2, headers=headers)
+time.sleep(1) #hold for 1s to avoid throttling
 # Step 3: Obtain a Userrights token
 PARAMS_3 = {
     "action": "query",
@@ -44,7 +51,7 @@ PARAMS_3 = {
     "meta": "tokens",
     "type": "userrights"
 }
-R = S.get(url=URL, params=PARAMS_3)
+R = S.get(url=URL, params=PARAMS_3, headers=headers)
 DATA = R.json()
 
 USERRIGHTS_TOKEN = DATA["query"]["tokens"]["userrightstoken"]
@@ -52,6 +59,7 @@ USERRIGHTS_TOKEN = DATA["query"]["tokens"]["userrightstoken"]
 count = 0
 while count < len(userlist):
   inactiveuser = userlist[count]
+    time.sleep(5) #wait 5 seconds before write api
 # Step 4: Request to add or remove a user from a group
   PARAMS_4 = {
       "action": "userrights",
@@ -67,7 +75,6 @@ while count < len(userlist):
   DATA = R.json()
 
   print(DATA)
-  time.sleep(3)
 time.sleep(2)
 print('Generating mass message text..')
 print('{{subst:Inactivity|user='+username+'}}')
