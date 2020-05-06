@@ -140,7 +140,9 @@ try:
     notify()
   if sys.argv[1] == 'help':
     print("Commands are:")
-    print("remove     Removes rights from inactive users")
+    print("remove - Removes rights from inactive users")
+    print("notify - Generates messages for inactive users")
+    print("help - Displays this help page")
   else:
     print("Unknown command. For help use 'main.py help'.")
 except IndexError:
