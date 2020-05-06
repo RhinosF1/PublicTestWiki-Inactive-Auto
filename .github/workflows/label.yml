@@ -11,7 +11,7 @@ on: [pull_request]
 jobs:
   label: merge-when-green
 
-    runs-on: ubuntu-latest
+  runs-on: ubuntu-latest
 
     steps:
     - uses: actions/labeler@v2
