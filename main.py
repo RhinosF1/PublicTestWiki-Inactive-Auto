@@ -7,6 +7,15 @@ import sys
 def remove():
   time.sleep(2)
   input("Press enter to continue or ctrl+c to quit")
+  file = open('userinfo.cfg', 'r')
+  userdata = file.read()
+  if userdata = '':
+    username = input("Username: ")
+    fromheader = input("Your Email: ")
+  else:
+    userdata.split(',')
+    username = userdata[1]
+    fromheader = userdata[2]
   users = input("How many users are being removed? ")
   userlist = []
   count = 0
@@ -15,9 +24,8 @@ def remove():
     userlist.append(usertemp)
     count = count + 1
     time.sleep(0.5)
-  fromheader = input("Your Email: ")
   headers = {
-      'User-Agent': 'PublicTestWikiInactiveAuto-github/rhinosf1-fortestwikiconusls',
+      'User-Agent': username + '@TestWikiAutoInactive-v1rc0,
       'From': fromheader
   }
   S = requests.Session()
@@ -45,6 +53,15 @@ def remove():
       "format": "json"
   }
   R = S.post(URL, data=PARAMS_2, headers=headers)
+  PARAMS_AUTH = {
+    "action": "query",
+    "format": "json",
+    "meta": "userinfo",
+    "uiprop": "email"
+  }
+  EMAIL = R.json()
+  EMAIL = EMAIL["email"]
+  R = S.get(URL, data=PARAMS_AUTH, headers=headers)
   time.sleep(1) #hold for 1s to avoid throttling
   # Step 3: Obtain a Userrights token
   PARAMS_3 = {
