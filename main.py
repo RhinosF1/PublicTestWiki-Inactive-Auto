@@ -50,7 +50,7 @@ def remove():
   # Step 2: Send a post request to log in. See
   # https://www.mediawiki.org/wiki/Manual:Bot_passwords
   time.sleep(1) #wait 1s to avoid throttling
-  username = input("Username: ")
+  username = input("Enter your wiki Username: ")
   password = stdiomask.getpass()
   PARAMS_2 = {
       "action": "login",
