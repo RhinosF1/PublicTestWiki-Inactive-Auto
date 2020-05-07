@@ -10,13 +10,17 @@ def remove():
   file = open('userinfo.cfg', 'r')
   userdata = file.read()
   file.close()
-  if userdata == '-':
-    opusername = input("Operator Username: ")
-    fromheader = input("Bot Email: ")
-  else:
-    userdata.split(',')
-    opusername = userdata[1]
-    fromheader = userdata[2]
+  try:
+    if userdata == '-':
+      opusername = input("Operator Username: ")
+      fromheader = input("Bot Email: ")
+    else:
+      userdata.split(',')
+      opusername = userdata[1]
+      fromheader = userdata[2]
+  except IndexError:
+    print("You did not full out the config file!")
+    sys.exit()
   users = input("How many users are being removed? ")
   userlist = []
   count = 0
