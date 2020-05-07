@@ -1,3 +1,2 @@
 merge when green:
-  - remove.py
-  - notify.py
+  - main.py
