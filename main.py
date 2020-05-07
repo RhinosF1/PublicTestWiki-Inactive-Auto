@@ -49,7 +49,7 @@ def remove():
   LOGIN_TOKEN = DATA["query"]["tokens"]["logintoken"]
   # Step 2: Send a post request to log in. See
   # https://www.mediawiki.org/wiki/Manual:Bot_passwords
-  time.sleep(1) #wait 1s to avoid throttling
+  time.sleep(5) #wait 5s to avoid throttling
   username = input("Username: ")
   password = stdiomask.getpass()
   PARAMS_2 = {
@@ -71,7 +71,7 @@ def remove():
   EMAIL = authres.json()
   EMAIL = EMAIL["query"]["userinfo"]["email"]
   print(EMAIL)
-  time.sleep(1) #hold for 1s to avoid throttling
+  time.sleep(5) #hold for 5s to avoid throttling
   # Step 3: Obtain a Userrights token
   PARAMS_3 = {
       "action": "query",
@@ -87,7 +87,7 @@ def remove():
   count = 0
   while count < len(userlist):
     inactiveuser = userlist[count]
-    time.sleep(5) #wait 5 seconds before write api
+    time.sleep(10) #wait 10 seconds before write api
   # Step 4: Request to add or remove a user from a group
     PARAMS_4 = {
         "action": "userrights",
