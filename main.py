@@ -9,7 +9,7 @@ def remove():
   input("Press enter to continue or ctrl+c to quit")
   file = open('userinfo.cfg', 'r')
   userdata = file.read()
-  if userdata = '':
+  if userdata == '':
     username = input("Username: ")
     fromheader = input("Your Email: ")
   else:
@@ -25,7 +25,7 @@ def remove():
     count = count + 1
     time.sleep(0.5)
   headers = {
-      'User-Agent': username + '@TestWikiAutoInactive-v1rc0,
+      'User-Agent': username + '@TestWikiAutoInactive-v1rc0',
       'From': fromheader
   }
   S = requests.Session()
