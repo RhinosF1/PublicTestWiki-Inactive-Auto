@@ -144,26 +144,26 @@ def notify():
 
 
 
-#try:
-if sys.argv[1] == 'remove':
-    print("Running Script in Remove Mode")
-    print("Welcome to the TestWiki:Inactivity Script")
-    print("This script may only be used by consuls")
-    print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
-    remove()
-if sys.argv[1] == 'notify':
-    print("Running Script in Notify Mode")
-    print("Before we begin, please run the findInactive script on https://publictestwiki.com")
-    print("The notification process will begin in 10 seconds")
-notify()
-if sys.argv[1] == 'help':
-    print("Commands are:")
-    print("remove - Removes rights from inactive users")
-    print("notify - Generates messages for inactive users")
-    print("help - Displays this help page")
-else:
-    print("Unknown command. For help use 'main.py help'.")
-#except IndexError as e:
-  #print(e)
-  #print("Please specify an action (remove, notify)")
-  #sys.exit()
+try:
+  if sys.argv[1] == 'remove':
+      print("Running Script in Remove Mode")
+      print("Welcome to the TestWiki:Inactivity Script")
+      print("This script may only be used by consuls")
+      print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
+      remove()
+  if sys.argv[1] == 'notify':
+      print("Running Script in Notify Mode")
+      print("Before we begin, please run the findInactive script on https://publictestwiki.com")
+      print("The notification process will begin in 10 seconds")
+      notify()
+  if sys.argv[1] == 'help':
+      print("Commands are:")
+      print("remove - Removes rights from inactive users")
+      print("notify - Generates messages for inactive users")
+      print("help - Displays this help page")
+  else:
+      print("Unknown command. For help use 'main.py help'.")
+except IndexError as e:
+  print(e)
+  print("Please specify an action (remove, notify)")
+  sys.exit()
