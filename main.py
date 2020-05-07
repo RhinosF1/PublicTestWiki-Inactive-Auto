@@ -9,6 +9,7 @@ def remove():
   input("Press enter to continue or ctrl+c to quit")
   file = open('userinfo.cfg', 'r')
   userdata = file.read()
+  file.close()
   if userdata == '-':
     opusername = input("Operator Username: ")
     fromheader = input("Bot Email: ")
@@ -29,7 +30,7 @@ def remove():
       'From': fromheader
   }
   S = requests.Session()
-  URL = "https://test.miraheze.org/w/api.php"
+  URL = "https://publictestwiki.com/w/api.php"
   # Step 1: Retrieve a login token
   PARAMS_1 = {
       "action": "query",
@@ -62,6 +63,7 @@ def remove():
   authres = S.post(URL, data=PARAMS_AUTH, headers=headers)
   print(str(authres))
   EMAIL = authres.json()
+  EMAIL = EMAIL["query"]["userinfo"]["email"]
   print(EMAIL)
   time.sleep(1) #hold for 1s to avoid throttling
   # Step 3: Obtain a Userrights token
@@ -90,12 +92,9 @@ def remove():
         "token": USERRIGHTS_TOKEN
     }
     count = count + 1
-    print('user-rights-post')
     R = S.post(URL, data=PARAMS_4, headers=headers)
-    print('postdone')
     DATA = R.json()
-
-    #print(DATA)
+    print(DATA)
   time.sleep(2)
   print('Generating mass message text..')
   print('{{subst:Inactivity|user='+opusername+'}}')
@@ -145,26 +144,26 @@ def notify():
 
 
 
-try:
-  if sys.argv[1] == 'remove':
-      print("Running Script in Remove Mode")
-      print("Welcome to the TestWiki:Inactivity Script")
-      print("This script may only be used by consuls")
-      print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
-      remove()
-  if sys.argv[1] == 'notify':
-      print("Running Script in Notify Mode")
-      print("Before we begin, please run the findInactive script on https://publictestwiki.com")
-      print("The notification process will begin in 10 seconds")
-      notify()
-  if sys.argv[1] == 'help':
-      print("Commands are:")
-      print("remove - Removes rights from inactive users")
-      print("notify - Generates messages for inactive users")
-      print("help - Displays this help page")
-  else:
+#try:
+if sys.argv[1] == 'remove':
+    print("Running Script in Remove Mode")
+    print("Welcome to the TestWiki:Inactivity Script")
+    print("This script may only be used by consuls")
+    print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
+    remove()
+if sys.argv[1] == 'notify':
+    print("Running Script in Notify Mode")
+    print("Before we begin, please run the findInactive script on https://publictestwiki.com")
+    print("The notification process will begin in 10 seconds")
+notify()
+if sys.argv[1] == 'help':
+    print("Commands are:")
+    print("remove - Removes rights from inactive users")
+    print("notify - Generates messages for inactive users")
+    print("help - Displays this help page")
+else:
     print("Unknown command. For help use 'main.py help'.")
-except IndexError as e:
-  print(e)
-  print("Please specify an action (remove, notify)")
-  sys.exit()
+#except IndexError as e:
+  #print(e)
+  #print("Please specify an action (remove, notify)")
+  #sys.exit()
