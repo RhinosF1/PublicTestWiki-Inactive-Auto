@@ -21,7 +21,6 @@ def remove():
   except IndexError:
     opusername = input("Operator Username: ")
     fromheader = input("Bot Email: ")
-    print("For best results, fill out the userinfo.cfg file.")
   users = input("How many users are being removed? ")
   userlist = []
   count = 0
