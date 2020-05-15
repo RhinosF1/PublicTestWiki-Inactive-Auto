@@ -19,7 +19,6 @@ def remove():
       opusername = userdata[1]
       fromheader = userdata[2]
   except IndexError:
-    print("You did not full out the config file!")
     opusername = input("Operator Username: ")
     fromheader = input("Bot Email: ")
     print("For best results, fill out the userinfo.cfg file.")
