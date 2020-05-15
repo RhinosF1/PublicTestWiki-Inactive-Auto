@@ -31,7 +31,7 @@ def remove():
         opusername = input("Operator Username: ")
         fromheader = input("Bot Email: ")
     headers = {
-        'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc0',
+        'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc1',
         'From': fromheader
     }
     S = requests.Session()
@@ -75,7 +75,7 @@ def remove():
         fromheader = EMAIL
         print("Your email was replaced with " + fromheader)
         headers = {
-            'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc0',
+            'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc1',
             'From': fromheader  # rewrite header to user email
         }
     configfile = open('userinfo.cfg', 'w+')
