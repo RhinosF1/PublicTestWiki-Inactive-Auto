@@ -2,6 +2,7 @@ import time
 import requests
 import stdiomask
 import sys
+from random import getrandbits
 
 # Define the functions here
 
@@ -20,21 +21,17 @@ def remove():
             userdata.split(',')
             opusername = userdata[1]
             fromheader = userdata[2]
+            username = userdata[3]
+            log = input("Logged in to: " + str(userdata) + " - Confirm? Y/N: ")
+            if log == "N":
+                opusername = input("Operator Username: ")
+                fromheader = input("Bot Email: ")
+                username = input("Bot Username: ")
     except IndexError:
-        print("You did not full out the config file!")
         opusername = input("Operator Username: ")
         fromheader = input("Bot Email: ")
-        print("For best results, fill out the userinfo.cfg file.")
-    users = input("How many users are being removed? ")
-    userlist = []
-    count = 0
-    while count < int(users):
-        usertemp = input("User to remove: ")
-        userlist.append(usertemp)
-        count = count + 1
-        time.sleep(0.5)
     headers = {
-        'User-Agent': opusername + '@TestWikiAutoInactive-v1rc0',
+        'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc0',
         'From': fromheader
     }
     S = requests.Session()
@@ -52,7 +49,6 @@ def remove():
     # Step 2: Send a post request to log in. See
     # https://www.mediawiki.org/wiki/Manual:Bot_passwords
     time.sleep(5)  # wait 5s to avoid throttling
-    username = input("Username: ")
     password = stdiomask.getpass()
     PARAMS_2 = {
         "action": "login",
@@ -61,6 +57,8 @@ def remove():
         "lgtoken": LOGIN_TOKEN,
         "format": "json"
     }
+    # destroy the password + replace with random hash
+    password = getrandbits(125)
     R = S.post(URL, data=PARAMS_2, headers=headers)
     PARAMS_AUTH = {
         "action": "query",
@@ -69,10 +67,27 @@ def remove():
         "uiprop": "email"
     }
     authres = S.post(URL, data=PARAMS_AUTH, headers=headers)
-    print(str(authres))
     EMAIL = authres.json()
     EMAIL = EMAIL["query"]["userinfo"]["email"]
-    print(EMAIL)
+    if fromheader == EMAIL:
+        print("Email Authenticated!")
+    else:
+        fromheader = EMAIL
+        print("Your email was replaced with " + fromheader)
+        headers = {
+            'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc0',
+            'From': fromheader  # rewrite header to user email
+        }
+    configfile = open('userinfo.cfg', 'w+')
+    configfile.write(
+        ',' +
+        opusername +
+        ',' +
+        fromheader +
+        ',' +
+        username +
+        ',')
+    configfile.close()
     time.sleep(5)  # hold for 5s to avoid throttling
     # Step 3: Obtain a Userrights token
     PARAMS_3 = {
@@ -85,7 +100,14 @@ def remove():
     DATA = R.json()
 
     USERRIGHTS_TOKEN = DATA["query"]["tokens"]["userrightstoken"]
-
+    users = input("How many users are being removed? ")
+    userlist = []
+    count = 0
+    while count < int(users):
+        usertemp = input("User to remove: ")
+        userlist.append(usertemp)
+        count = count + 1
+        time.sleep(0.5)
     count = 0
     while count < len(userlist):
         inactiveuser = userlist[count]
@@ -161,12 +183,12 @@ try:
         print("This script may only be used by consuls")
         print("Please ensure notifications were sent > 7 days ago and the users are still inacitve")
         remove()
-    if sys.argv[1] == 'notify':
+    elif sys.argv[1] == 'notify':
         print("Running Script in Notify Mode")
         print("Before we begin, please run the findInactive script on https://publictestwiki.com")
         print("The notification process will begin in 10 seconds")
         notify()
-    if sys.argv[1] == 'help':
+    elif sys.argv[1] == 'help':
         print("Commands are:")
         print("remove - Removes rights from inactive users")
         print("notify - Generates messages for inactive users")
