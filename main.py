@@ -155,7 +155,7 @@ def notify():
     print("Generating mass message text....")
     sleep(2)
     print("{{subst:InactiveReminder|DATE=" + removedate +
-          "|sig=~~~ for [[User:" + consul + "|" + consul + "]]}}")
+          "|sig=~~~ on behalf of [[User:" + consul + "|" + consul + "]]}}")
     print("Generating Community Noticeboard post")
     sleep(2)
     print("==Inactive Rights Removal - " + date + "==")
