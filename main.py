@@ -30,6 +30,7 @@ def remove():
     except IndexError:
         opusername = input("Operator Username: ")
         fromheader = input("Bot Email: ")
+        username = input("Bot Username: ")
     headers = {
         'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1',
         'From': fromheader
