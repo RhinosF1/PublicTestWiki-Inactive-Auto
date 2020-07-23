@@ -30,8 +30,9 @@ def remove():
     except IndexError:
         opusername = input("Operator Username: ")
         fromheader = input("Bot Email: ")
+        username = input("Bot Username: ")
     headers = {
-        'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc2',
+        'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1',
         'From': fromheader
     }
     S = Session()
@@ -75,7 +76,7 @@ def remove():
         fromheader = EMAIL
         print("Your email was replaced with " + fromheader)
         headers = {
-            'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1rc2',
+            'User-Agent': 'BOT: ' + opusername + '@TestWikiAutoInactive-v1',
             'From': fromheader  # rewrite header to user email
         }
     configfile = open('userinfo.cfg', 'w+')
@@ -119,7 +120,8 @@ def remove():
             "user": inactiveuser,
             "remove": "bot|sysop|bureaucrat|consul|testgroup|autopatrolled|confirmed|rollbacker|interface-admin|flow-bot|checkuser|interwiki-admin|oversight|steward",
             "reason": "per [[TestWiki:Inactivity|Inactivity report]]",
-            "token": USERRIGHTS_TOKEN}
+            "token": USERRIGHTS_TOKEN
+        }
         count = count + 1
         R = S.post(URL, data=PARAMS_4, headers=headers)
         DATA = R.json()
