@@ -120,7 +120,8 @@ def remove():
             "user": inactiveuser,
             "remove": "bot|sysop|bureaucrat|consul|testgroup|autopatrolled|confirmed|rollbacker|interface-admin|flow-bot|checkuser|interwiki-admin|oversight|steward",
             "reason": "per [[TestWiki:Inactivity|Inactivity report]]",
-            "token": USERRIGHTS_TOKEN}
+            "token": USERRIGHTS_TOKEN
+        }
         count = count + 1
         R = S.post(URL, data=PARAMS_4, headers=headers)
         DATA = R.json()
